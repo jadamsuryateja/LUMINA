@@ -31,15 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(el);
     });
 
-    // Simple Form Validation (UI)
-    const contactForm = document.querySelector('.needs-validation');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (event) => {
-            if (!contactForm.checkValidity()) {
+    // Form Submission for Contact & Newsletter
+    const forms = document.querySelectorAll('.needs-validation');
+    const newsletterModal = new bootstrap.Modal(document.getElementById('newsletterModal'));
+
+    forms.forEach(form => {
+        form.addEventListener('submit', (event) => {
+            if (!form.checkValidity()) {
                 event.preventDefault();
                 event.stopPropagation();
+            } else {
+                event.preventDefault(); // Prevent page reload for demo
+                newsletterModal.show();
+                form.reset();
+                form.classList.remove('was-validated');
             }
-            contactForm.classList.add('was-validated');
+            form.classList.add('was-validated');
         }, false);
-    }
+    });
 });
