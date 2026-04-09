@@ -1,0 +1,242 @@
+/* Lumina Creative - Custom Design System */
+
+:root {
+    --primary-color: #6C63FF; /* Electric Violet */
+    --secondary-color: #00F5FF; /* Cyan Glow */
+    --accent-color: #FF007A; /* Magenta Pulse */
+    --bg-dark: #0B0D17; /* Deep Midnight */
+    --bg-card: rgba(0, 0, 0, 0.4); /* Darker glass for better contrast */
+    --text-light: #F8F9FA;
+    --text-muted: #cbd5e1; /* Even lighter for visibility on images */
+    --glass-border: rgba(255, 255, 255, 0.15);
+}
+
+/* Legibility Overrides */
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+a.text-muted:hover {
+    color: var(--secondary-color) !important;
+}
+
+.carousel-caption p {
+    color: var(--text-muted);
+}
+
+/* Slim Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+}
+
+/* Navbar Upgrades */
+.navbar {
+    transition: all 0.4s ease-in-out;
+    padding: 1.5rem 0;
+}
+
+.navbar.scrolled {
+    background: rgba(11, 13, 23, 0.85);
+    backdrop-filter: blur(15px);
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.navbar-brand span {
+    color: var(--primary-color);
+}
+
+.nav-link {
+    font-weight: 500;
+    margin: 0 10px;
+    position: relative;
+    color: var(--text-light) !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--secondary-color) !important;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
+
+/* Hero Carousel */
+.carousel-item {
+    height: 100vh;
+    min-height: 600px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.carousel-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(11, 13, 23, 0.4), rgba(11, 13, 23, 0.9));
+}
+
+.carousel-caption {
+    bottom: 30%;
+    z-index: 2;
+}
+
+.carousel-caption h1 {
+    font-size: 4rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.carousel-caption p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+}
+
+/* Premium Button */
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 0.8rem 2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3);
+    background-color: #5b54e0;
+}
+
+/* Glass Cards */
+.glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Background Card with Tint */
+.card-bg-image {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    color: var(--text-light);
+    border: none;
+}
+
+.card-bg-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(11, 13, 23, 0.5), rgba(11, 13, 23, 0.9));
+    z-index: 1;
+}
+
+.card-bg-image > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Animations */
+.reveal {
+    opacity: 1; /* Default to visible for resilience */
+    transform: none;
+    transition: all 0.8s ease-out;
+}
+
+body.js-enabled .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+body.js-enabled .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid var(--glass-border);
+    padding: 5rem 0 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .carousel-caption h1 {
+        font-size: 2.5rem;
+    }
+}
