@@ -1,28 +1,24 @@
-# 🚀 Bootstrap 5 Internship Task – Lumina Creative
-
-### Project Overview
-Lumina Creative is a high-end, futuristic digital agency website built using **Bootstrap 5.3**. The project showcases a 3-page responsive design (Home, About, Contact) that moves beyond standard templates by remixing official Bootstrap components with custom glassmorphism styling and high-resolution assets.
+### 🚀 Modern Tech Stack
+Lumina Creative has been migrated to a **Vite-powered** environment for a professional-grade development workflow.
+- **Vite 5**: Fast bundling and hot module replacement.
+- **EmailJS SDK**: Integrated via NPM for secure, client-side email transmission.
+- **Environment Variables**: Managed via `.env` files for secure API key handling.
+- **ES Modules**: Modern JavaScript structure for better performance and maintainability.
 
 ---
 
 ## ✍️ Project Reflection
 
 ### 🛠️ Step-by-Step Achievement
-1.  **Exploration & Research**: Began by analyzing the official Bootstrap 5 documentation and examples (specifically Heroes, Features, and Navbars) to identify high-impact UI patterns.
-2.  **Asset Generation**: Used AI-powered image generation to create high-resolution, futuristic tech context images for the background and carousels.
-3.  **Core Design System**: Developed a custom `style.css` to override Bootstrap defaults with a "Deep Midnight" theme, vibrant violet accents, and glassmorphism utilities (`backdrop-filter`).
-4.  **Component Remixing**:
-    *   **Navbar**: Combined the sticky-top navbar with a custom JavaScript toggle for transparency on scroll.
-    *   **Hero**: Remixed the standard Carousel into a full-viewport immersive experience with background-size cover.
-    *   **Cards**: Stylized standard Bootstrap cards into "Glass Cards" with hover-scale animations.
-5.  **Page Composition**: Balanced layout flow on all three pages (Home, About, Contact) to ensure a premium feel and logical information hierarchy.
-6.  **Responsive Polishing**: Applied utility classes (`row-cols`, `display-x`, `g-x`) to ensure flawless display across mobile and desktop.
+- **Phase 1: Component Architecture**: Refactored the site into a modular system where the Navbar and Footer are reusable components loaded dynamically.
+- **Phase 2: Security & .env**: Implemented a professional environment variable system to protect EmailJS keys.
+- **Phase 3: Creative Redesign**: Synchronized a "Creative Uppercase" design system across all 3 pages with cinematic local banner assets.
 
 ### 🤖 Tools Used
-- **Bootstrap 5.3 Docs & Examples**: Primary source for component structure and utility classes.
-- **Antigravity AI**: Assisted in generating design ideas, writing the custom CSS logic, and creating the hero images.
-- **Google Fonts (Inter & Montserrat)**: Used for premium typography.
-- **Bootstrap Icons**: Integrated for the features and footer sections.
+- **Vite**: Modern build tool and dev server.
+- **Bootstrap 5.3 CDN**: Core UI framework for responsive layout.
+- **EmailJS (@emailjs/browser)**: Managed via NPM for contact form functionality.
+- **Custom CSS (Glassmorphism)**: Hand-crafted UI tokens for a premium feel.
 
 ### 🧩 Challenges & Solutions
 - **Challenge**: The default Bootstrap navbar looked too "standard" and broke the immersive feel of the hero section.

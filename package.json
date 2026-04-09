@@ -1,0 +1,28 @@
+{
+  "name": "task",
+  "version": "1.0.0",
+  "description": "Lumina Creative is a high-end, futuristic digital agency website built using **Bootstrap 5.3**. The project showcases a 3-page responsive design (Home, About, Contact) that moves beyond standard templates by remixing official Bootstrap components with custom glassmorphism styling and high-resolution assets.",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jadamsuryateja/LUMINA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jadamsuryateja/LUMINA/issues"
+  },
+  "homepage": "https://github.com/jadamsuryateja/LUMINA#readme",
+  "devDependencies": {
+    "vite": "^8.0.8"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1"
+  }
+}

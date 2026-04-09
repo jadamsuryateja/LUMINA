@@ -1,0 +1,20 @@
+# Lumina Creative - Git Ignore
+# Protect sensitive data and OS metadata
+
+# API Keys & Local Config
+js/config.js
+.env
+.env.local
+.env.*.local
+
+# Build & Dependencies
+node_modules/
+dist/
+.vercel/
+.npm/
+
+# IDE Folders
+.vscode/
+.idea/
+*.swp
+*.bak

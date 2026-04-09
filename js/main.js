@@ -1,3 +1,5 @@
+import emailjs from '@emailjs/browser';
+
 /* Lumina Creative - Interaction Logic */
 
 async function loadNavbar() {
@@ -5,7 +7,7 @@ async function loadNavbar() {
     if (!placeholder) return;
 
     try {
-        const response = await fetch('components/navbar.html');
+        const response = await fetch('/components/navbar.html');
         const html = await response.text();
         placeholder.innerHTML = html;
 
@@ -14,7 +16,8 @@ async function loadNavbar() {
         const navLinks = document.querySelectorAll('.nav-link');
         
         navLinks.forEach(link => {
-            if (link.getAttribute('href') === currentPage) {
+            const href = link.getAttribute('href');
+            if (href === currentPage) {
                 link.classList.add('active');
             }
         });
@@ -22,26 +25,53 @@ async function loadNavbar() {
         // Initialize scroll listener for the newly loaded navbar
         const navbar = document.querySelector('.navbar');
         
-        // Initial check for pages like About/Contact that should be 'scrolled' by default if they have a header
-        if (currentPage !== 'index.html') {
-            navbar.classList.add('scrolled');
-        }
-
-        window.addEventListener('scroll', () => {
+        // Universal Transparency Logic: Transparent at top, solid on scroll
+        // This applies to ALL pages now that we have headers/banners everywhere
+        const handleScroll = () => {
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
-            } else if (currentPage === 'index.html') {
+            } else {
                 navbar.classList.remove('scrolled');
             }
-        });
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Initial check
 
     } catch (error) {
         console.error('Error loading navbar:', error);
     }
 }
 
+async function loadFooter() {
+    const placeholder = document.getElementById('footer-placeholder');
+    if (!placeholder) return;
+
+    try {
+        const response = await fetch('/components/footer.html');
+        const html = await response.text();
+        placeholder.innerHTML = html;
+    } catch (error) {
+        console.error('Error loading footer:', error);
+    }
+}
+
+// Initialize EmailJS from Environment Variables (Vite)
+const initEmailJS = () => {
+    if (typeof emailjs !== 'undefined') {
+        const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+        if (publicKey && publicKey !== "YOUR_PUBLIC_KEY") {
+            emailjs.init({
+                publicKey: publicKey,
+            });
+        }
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     loadNavbar();
+    loadFooter();
+    initEmailJS();
     
     // Enable reveal animations
     document.body.classList.add('js-enabled');
@@ -63,23 +93,53 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(el);
     });
 
-    // Form Submission for Contact & Newsletter
-    // Note: This needs to wait for navbar/footer if they contain forms
-    // But footer is static for now. In a real scenario, we'd use a more robust event delegation.
+    // Integrated Form Submission (EmailJS + Modal)
     document.addEventListener('submit', (event) => {
         const form = event.target;
         if (form.classList.contains('needs-validation')) {
-            const newsletterModal = new bootstrap.Modal(document.getElementById('newsletterModal'));
+            event.preventDefault();
+            
             if (!form.checkValidity()) {
-                event.preventDefault();
                 event.stopPropagation();
+                form.classList.add('was-validated');
             } else {
-                event.preventDefault(); // Prevent page reload for demo
-                newsletterModal.show();
-                form.reset();
-                form.classList.remove('was-validated');
+                const sendButton = form.querySelector('[type="submit"]');
+                const originalText = sendButton.innerText;
+                
+                // Show loading state
+                sendButton.innerText = "TRANSMITTING...";
+                sendButton.disabled = true;
+
+                // Handle both Contact Form and Newsletter (if IDs match)
+                if (form.id === 'contact-form') {
+                    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+                    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+
+                    emailjs.sendForm(serviceId, templateId, form)
+                        .then(() => {
+                            const successModal = new bootstrap.Modal(document.getElementById('newsletterModal'));
+                            successModal.show();
+                            form.reset();
+                            form.classList.remove('was-validated');
+                        }, (error) => {
+                            alert("TRANSMISSION FAILED: " + JSON.stringify(error));
+                        })
+                        .finally(() => {
+                            sendButton.innerText = originalText;
+                            sendButton.disabled = false;
+                        });
+                } else {
+                    // Simpler logic for newsletter or general forms
+                    setTimeout(() => {
+                        const successModal = new bootstrap.Modal(document.getElementById('newsletterModal'));
+                        successModal.show();
+                        form.reset();
+                        form.classList.remove('was-validated');
+                        sendButton.innerText = originalText;
+                        sendButton.disabled = false;
+                    }, 1000);
+                }
             }
-            form.classList.add('was-validated');
         }
     }, false);
 });
